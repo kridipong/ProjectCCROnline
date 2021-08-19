@@ -21,20 +21,20 @@ const Customer = (props) => {
   ];
 
   return (
-    <Fragment>
+    <div>
       <DropDown key={billType.id} options={billType} label="ประเภทบิล" />
 
-      <span>
-        <h3>{customer.customerCode}</h3>
-        <p>{customer.customerName}</p>
-      </span>
+      <div>
+        <label>{customer.customerName}</label>
+        <button>{customer.customerCode}</button>
+      </div>
 
       <DropDown
         key={customerType.id}
         options={customerType}
         label="customer type"
       />
-    </Fragment>
+    </div>
   );
 };
 export default Customer;
