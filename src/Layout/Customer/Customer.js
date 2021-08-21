@@ -1,13 +1,15 @@
-import React, { Fragment } from "react";
+import React, { useState } from "react";
 import DropDown from "../../Components/DropDown";
 
 const Customer = (props) => {
-  const customer = {
+  const dummy_customer = {
     customerCode: "000001",
     customerName: "หน้าร้านเงินสด",
     customerType: "1",
     typeOfBill: "SC",
   };
+
+  const  [customer, setCustomer]=useState(dummy_customer);
 
   const customerType = [
     { id: "1", name: "หน้าร้าน" },
@@ -19,6 +21,13 @@ const Customer = (props) => {
     { name: "เงินสด", id: "SC" },
     { name: "เงินเชื่อ", id: "SO" },
   ];
+
+  const changeCustomerTypeHandler=(event)=> {
+    event.preventDefault();
+    let updatedCustomer = {...customer, customerType:event.target.value};
+    setCustomer(updatedCustomer);
+    console.log(updatedCustomer);
+  }
 
   return (
     <div>
@@ -33,6 +42,7 @@ const Customer = (props) => {
         key={customerType.id}
         options={customerType}
         label="customer type"
+        onChange={changeCustomerTypeHandler}
       />
     </div>
   );

@@ -1,9 +1,10 @@
 import Header from "./Layout/Header/Header";
-import Customer from './Layout/Customer/Customer';
+import Item from './Layout/Item/Item';
 function App() {
   return (
     <div>
       <Header></Header>
+      <Item></Item>
     </div>
   );
 }

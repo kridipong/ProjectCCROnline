@@ -1,14 +1,20 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Card from '../../Components/Card';
 import Customer from '../Customer/Customer';
 const Header =(props) => {
 
-// const toDay = Date(2018,12,1);
+const [issueDate,setIssueDate]=useState(Date());
+
+const changeDateHandler =(event)=>{
+    event.preventDefault();
+    setIssueDate(event.target.value);
+};
+
 
 return <Card>
 <div>
 <label> วันที่ </label>
-<input type = "date"></input>
+<input type = "date" onChange = {changeDateHandler} value={issueDate} defaultValue= {Date()} ></input>
 
 <Customer></Customer>
 

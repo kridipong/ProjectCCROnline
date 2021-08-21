@@ -1,0 +1,19 @@
+.item {
+  width: fit-content;
+}
+.amount {
+  width: 3rem;
+}
+
+.lineitem {
+ 
+  display: inline-block;
+  margin:1rem;
+  padding:0;
+}
+
+.button {
+
+  margin:1rem;
+
+}
