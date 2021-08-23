@@ -14,7 +14,7 @@ const changeDateHandler =(event)=>{
 return <Card>
 <div>
 <label> วันที่ </label>
-<input type = "date" onChange = {changeDateHandler} value={issueDate} defaultValue= {Date()} ></input>
+<input type = "date" onChange = {changeDateHandler} value={issueDate} ></input>
 
 <Customer></Customer>
 

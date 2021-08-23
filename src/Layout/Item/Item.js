@@ -1,6 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useContext } from "react";
+import InvoiceContext from '../../Store/invoice-context';
 import Card from "../../Components/Card";
 import classes from "../Item/item.module.css";
+
 
 const Item = (props) => {
   const item = {
@@ -15,7 +17,7 @@ const Item = (props) => {
     bonusfactor: 1,
   };
 
-  const amountInputRef = useRef();
+  const ctx = useContext(InvoiceContext);
 
   function getPrice(customerType) {
     if (customerType === "1") {
@@ -30,27 +32,45 @@ const Item = (props) => {
     return item.price1;
   }
 
-  const suggestedPrice = getPrice("1");
+
+  const suggestedPrice = getPrice("2");
 
   const [amount, setAmount] = useState(suggestedPrice);
+  const [addAmount, setAddAmount] = useState(1);
 
   const changeAmountHandler = (event) => {
     event.preventDefault();
     setAmount(event.target.value * suggestedPrice);
+    setAddAmount(+event.target.value);
   };
 
-  const submitHandler = (amount) => {};
+  const submitHandler = (event) => {
+    event.preventDefault();
+    // const amount = amountInputRef;
+
+    ctx.onAddItem({
+     itemcode:item.itemcode,
+     fullname:item.fullname,
+     detail:item.detail,
+     addAmount:addAmount,
+     price:suggestedPrice,
+     bonusfactor:item.bonusfactor ,
+    })
+
+  };
+
+
 
   return (
-    <Card className={classes.item}>
-      <form onSubmit={submitHandler}>
+    <Card className={classes.item} >
+      <form onSubmit={submitHandler } >
         <span className={classes.lineitem}> {`${item.itemcode}  `} </span>
         <span className={classes.lineitem}> {`${item.fullname}`}</span>
         <span className={classes.lineitem}> {`${item.detail}`}</span>
         <span className={classes.lineitem}>{suggestedPrice} </span>
         <span className={classes.lineitem}>{amount.toFixed(2)}</span>
         <input
-          ref={amountInputRef}
+          
           className={classes.amount}
           type="number"
           min="1"
@@ -58,7 +78,7 @@ const Item = (props) => {
           defaultValue="1"
           onChange={changeAmountHandler}
         />
-        <button type="submit" className={classes.button}>
+        <button className={classes.button}>
           Add+
         </button>
       </form>
