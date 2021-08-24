@@ -3,6 +3,7 @@ import InvoiceContext from "../../Store/invoice-context";
 import Card from "../../Components/Card";
 import CartItem from "./CartItem";
 import PopupPrice from "../../Popup/PopupPrice";
+import classes from './Cart.module.css';
 
 const Cart = (props) => {
   const ctx = useContext(InvoiceContext);
@@ -37,7 +38,7 @@ const Cart = (props) => {
   };
 
   return (
-    <Card>
+    <Card className = {classes.cart}>
       {showEditPrice && (
         <PopupPrice onClose={hidePriceEditHandler} item={focusItem} />
       )}
