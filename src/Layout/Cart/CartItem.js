@@ -8,8 +8,9 @@ const CartItem = (props) => {
       <span> {props.item.price} </span>
       <span> {props.item.addAmount} </span>
       <span> {props.item.addAmount * props.item.price} </span>
+      <button onClick = {props.onPriceEdit}>/</button>
       <button onClick = {props.onAdd}>+</button>
-      <button>-</button>
+      <button onClick = {props.onRemove}>-</button>
     </li>
   );
 };

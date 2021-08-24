@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 
 const DropDown = (props) => {
 
-    const listOptions = props.options.map((choice)=><option key = {props.key} value={choice.id}>{choice.name}</option>);
+    const listOptions = props.options.map((choice)=><option key={choice.id} value={choice.id}>{choice.name}</option>);
 
 
   return (

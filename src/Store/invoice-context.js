@@ -28,6 +28,7 @@ const InvoiceContext = React.createContext({
   ],
   onAddItem: (item) => {}, //{itemcode:'', fullname:'',detail:'', addAmount:'', bonusFactor:0,price:0, cost:0, stk:0 }
   onRemoveItem: (item) => {},
+  onUpdatePrice:(item) => {},
   totalAmount: 0,
   totalPrice: 0,
   totalBonus:0,

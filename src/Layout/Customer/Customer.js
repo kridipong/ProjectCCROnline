@@ -31,15 +31,13 @@ const Customer = (props) => {
 
   return (
     <div>
-      <DropDown key={billType.id} options={billType} label="ประเภทบิล" />
-
+      <DropDown options={billType} label="ประเภทบิล" />
       <div>
         <label>{customer.customerName}</label>
         <button>{customer.customerCode}</button>
       </div>
 
       <DropDown
-        key={customerType.id}
         options={customerType}
         label="customer type"
         onChange={changeCustomerTypeHandler}

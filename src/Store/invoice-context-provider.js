@@ -36,6 +36,80 @@ const cartReducer = (state, action) => {
       totalBonus:updatedTotalBonus,
     };
   }
+
+  if (action.type === "REMOVE") {
+    const existingCartItemIndex = state.items.findIndex(
+      (item) => item.itemcode === action.item.itemcode
+    );
+    const existingCartItem = state.items[existingCartItemIndex];
+
+    let updatedItems;
+    let updatedItem;
+
+    if (existingCartItem.addAmount >1) {
+
+      updatedItem = {
+        ...existingCartItem,
+        addAmount: existingCartItem.addAmount -1,
+      };
+      updatedItems = [...state.items];
+      updatedItems[existingCartItemIndex] = updatedItem;
+    } else {
+      updatedItems = state.items.filter((item)=> item.itemcode !== existingCartItem.itemcode );
+    }
+    
+    const updatedTotalAmount = state.totalAmount -1;
+    const updatedTotalPrice =
+      state.totalPrice - action.item.price ;
+    const updatedTotalBonus = state.totalBonus- action.item.bonusfactor*action.item.price;
+
+    return {
+      items: updatedItems,
+      totalAmount: updatedTotalAmount,
+      totalPrice: updatedTotalPrice,
+      totalBonus:updatedTotalBonus,
+    };
+
+
+  }
+
+
+  if (action.type === "UPDATE_PRICE") {
+
+    const existingCartItemIndex = state.items.findIndex(
+      (item) => item.itemcode === action.item.itemcode
+    );
+    const existingCartItem = state.items[existingCartItemIndex];
+
+    let updatedItems;
+    let updatedItem;
+    let changedPrice;
+
+    if (existingCartItem) {
+      changedPrice= action.item.price - existingCartItem.price;
+      updatedItem = {
+        ...existingCartItem,
+        price: action.item.price,
+      };
+      updatedItems = [...state.items];
+      updatedItems[existingCartItemIndex] = updatedItem;
+    } 
+
+    const updatedTotalPrice =
+      state.totalPrice + changedPrice* action.item.addAmount;
+    const updatedTotalBonus = state.totalBonus+ action.item.bonusfactor*action.item.addAmount*changedPrice ;
+
+    return {
+      items: updatedItems,
+      totalAmount: state.totalAmount,
+      totalPrice: updatedTotalPrice,
+      totalBonus:updatedTotalBonus,
+    };
+
+
+
+  }
+
 };
 
 const InvoiceContextProvider = (props) => {
@@ -69,9 +143,16 @@ const InvoiceContextProvider = (props) => {
     dispacthCartAction({ type: "ADD", item: item });
   };
 
-  const removeCartHandler = (id) => {
-    dispacthCartAction({ type: "REMOVE", id: id });
+  const removeCartHandler = (item) => {
+    dispacthCartAction({ type: "REMOVE", item: item });
   };
+
+  const updatePriceHandler = (item) => {
+    dispacthCartAction({ type: "UPDATE_PRICE", item: item });
+  };
+
+  
+  
 
   const invoiceContext = {
     // customer:{},
@@ -81,6 +162,7 @@ const InvoiceContextProvider = (props) => {
     items: cartState.items,
     onAddItem: addCartHandler,
     onRemoveItem: removeCartHandler,
+    onUpdatePrice:updatePriceHandler,
     totalAmount: cartState.totalAmount,
     totalPrice: cartState.totalPrice,
     totalBonus: cartState.totalBonus,
