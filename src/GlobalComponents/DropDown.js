@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import React from "react";
+import classes from './DropDown.module.css';
 
 
 const DropDown = (props) => {
@@ -7,12 +8,12 @@ const DropDown = (props) => {
 
 
   return (
-    <Fragment>
+    <div className= {classes.dropdown}>
       <label> {props.label} </label>
       <select name={props.label} onChange={props.onChange}>
         {listOptions}
       </select>
-    </Fragment>
+    </div>
   );
 };
 export default DropDown;
