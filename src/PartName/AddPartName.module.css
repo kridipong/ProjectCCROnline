@@ -1,0 +1,20 @@
+
+.control {
+
+
+}
+
+  .control label{
+      font-size:1.1rem;
+    font-weight: bold;
+    font: inherit;
+    padding-left: 0.5rem;
+  }
+  .control select{
+    width: 15rem;
+    margin-left: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font: inherit;
+    padding-left: 0.5rem;
+  }

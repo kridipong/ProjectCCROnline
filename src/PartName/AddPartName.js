@@ -1,13 +1,13 @@
-import React, { useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 import Card from "../GlobalComponents/Card";
 import Input from "../GlobalComponents/Input";
 import Button from "../GlobalComponents/Button";
+import classes from "./AddPartName.module.css";
 
 const AddPartName = (props) => {
   const partCodeRef = useRef();
   const partNameRef = useRef();
   const [modeCode, setModeCode] = useState();
-
 
   const listOptions = props.modes.map((mode) => (
     <option value={mode.ModeCode} key={mode.ModeCode}>
@@ -20,10 +20,9 @@ const AddPartName = (props) => {
     setModeCode(event.target.value);
   };
 
-
-//   useEffect(() => {
-//       setNewPartCode(props.newPartCode);
-//   }, [props.newPartCode])
+  //   useEffect(() => {
+  //       setNewPartCode(props.newPartCode);
+  //   }, [props.newPartCode])
 
   console.log(props.newPartCode);
 
@@ -40,11 +39,16 @@ const AddPartName = (props) => {
 
   return (
     <Card>
-      <label htmlFor="หมวด">หมวด </label>
-      <select name="หมวด" onChange={modeChangeHandler}>
-        {listOptions}
-      </select>
-
+      <div className ={classes.control}>
+        <label htmlFor="Mode">Mode </label>
+        <select
+        
+          name="Mode"
+          onChange={modeChangeHandler}
+        >
+          {listOptions}
+        </select>
+      </div>
       <Input
         label="PartCode"
         input={{ id: "PartCode", type: "text", value: props.newPartCode }}

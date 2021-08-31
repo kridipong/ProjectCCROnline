@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "../GlobalComponents/Card";
 import Button from "../GlobalComponents/Button";
+import PartNameItem from "./PartNameItem";
 
 const PartNameList = (props) => {
   const modeName = (modecode) => {
@@ -19,11 +20,10 @@ const PartNameList = (props) => {
 
   const content = props.partnames.map((partname) => {
     return (
-      <div key = {partname.PartCode}>
-        <span>{modeName(partname.ModeCode)}</span>
-        <span>{partname.PartCode}</span>
-        <span>{partname.PartName}</span>
-      </div>
+      <PartNameItem
+        partname={partname}
+        modename={modeName(partname.ModeCode)}
+      />
     );
   });
 

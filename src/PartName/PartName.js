@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PartNameList from "./PartNameList";
 import AddPartName from "./AddPartName";
+import classes from './PartName.module.css';
 
 
 const PartName = (props) => {
@@ -33,7 +34,7 @@ const PartName = (props) => {
 
   useEffect(() => {
     fetchMode();
-    fetchPartNameList();
+    // fetchPartNameList();
   }, []);
 
   const addPartNameHandler = async (partName) => {
@@ -91,12 +92,13 @@ const PartName = (props) => {
   };
 
   return (
-    <div>
+    <div className={classes.control}>
       <AddPartName
         modes={modes}
         onAddPartName={addPartNameHandler}
         newPartCode={newPartCode}
       />
+      <br />
       {isLoading && <p> is Loading ..</p>}
 
       <PartNameList

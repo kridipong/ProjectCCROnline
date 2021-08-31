@@ -1,16 +1,19 @@
 import PartName from "./PartName/PartName";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Mode from "./Mode/ModeManager";
 import Sales from "./Sales/Sales";
 import ItemMaster from "./ItemMaster/ItemMaster";
 import MainHeader from "./MainHeader/MainHeader";
+import ItemSearch from "./ItemSearch/ItemSearch";
+import classes from './App.module.css';
+
 
 function App() {
   const [selectedPage, setSelectedPage] = useState("PartName");
 
-  useEffect(() => {
-    showPage("PartName");
-  }, []);
+  const showPageHandler = (page) => {
+    setSelectedPage(page);
+  };
 
   const showPage = (selectedPage) => {
     if (selectedPage === "PartName") {
@@ -25,12 +28,21 @@ function App() {
     if (selectedPage === "ItemMaster") {
       return <ItemMaster />;
     }
+    if (selectedPage === "ItemSearch") {
+      return <ItemSearch />;
+    }
   };
 
   return (
     <div>
-      <MainHeader></MainHeader>
-      <div>{showPage("PartName")} </div>
+      <MainHeader onShowPage={showPageHandler}></MainHeader>
+      <br />
+      <br />
+      <br />
+      <br />
+      <main>
+        <div className={classes.main} >{showPage(selectedPage)} </div>
+      </main>
     </div>
   );
 }

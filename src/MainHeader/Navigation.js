@@ -1,30 +1,52 @@
+import React, { useContext } from "react";
 
-import React, { useContext } from 'react';
+import classes from "./Navigation.module.css";
 
-import AuthContext from '../../store/auth-context';
-import classes from './Navigation.module.css';
+const Navigation = (props) => {
+  const showPartName = () => {
+    props.onShowPartName();
+  };
 
-const Navigation = () => {
-  const ctx = useContext(AuthContext);
+  const showMode = () => {
+    props.onShowMode();
+  };
+
+  const showItemMaster = () => {
+    props.onShowItemMaster();
+  };
+
+  const showSales = () => {
+    props.onShowSales();
+  };
+
+  const showItemSearch = () => {
+    props.onShowItemSearch();
+  };
 
   return (
     <nav className={classes.nav}>
       <ul>
-        {ctx.isLoggedIn && (
-          <li>
-            <a href="/">Users</a>
-          </li>
-        )}
-        {ctx.isLoggedIn && (
-          <li>
-            <a href="/">Admin</a>
-          </li>
-        )}
-        {ctx.isLoggedIn && (
-          <li>
-            <button onClick={ctx.onLogout}>Logout</button>
-          </li>
-        )}
+        <li>
+          <button onClick={showItemMaster}>ITEMMASTER</button>
+        </li>
+        <li>
+          <button onClick={showItemSearch}>ITEMSEARCH</button>
+        </li>
+
+        <li>
+          <button onClick={showSales}>Sales</button>
+        </li>
+
+        <li>
+          <button onClick={showPartName}> PartName</button>
+        </li>
+        <li>
+          <button onClick={showMode}>Mode</button>
+        </li>
+
+        <li>
+          <button>Logout</button>
+        </li>
       </ul>
     </nav>
   );
