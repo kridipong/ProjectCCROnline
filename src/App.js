@@ -5,8 +5,7 @@ import Sales from "./Sales/Sales";
 import ItemMaster from "./ItemMaster/ItemMaster";
 import MainHeader from "./MainHeader/MainHeader";
 import ItemSearch from "./ItemSearch/ItemSearch";
-import classes from './App.module.css';
-
+import classes from "./App.module.css";
 
 function App() {
   const [selectedPage, setSelectedPage] = useState("PartName");
@@ -35,13 +34,15 @@ function App() {
 
   return (
     <div>
-      <MainHeader onShowPage={showPageHandler}></MainHeader>
-      <br />
-      <br />
-      <br />
-      <br />
+      <header>
+        <MainHeader onShowPage={showPageHandler}></MainHeader>
+        <br />
+        <br />
+        <br />
+        <br />
+      </header>
       <main>
-        <div className={classes.main} >{showPage(selectedPage)} </div>
+        <div className={classes.main}>{showPage(selectedPage)} </div>
       </main>
     </div>
   );

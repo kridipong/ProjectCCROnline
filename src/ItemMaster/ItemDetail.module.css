@@ -1,0 +1,33 @@
+.control {
+}
+
+.control label {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  font: inherit;
+  padding-left: 0.5rem;
+}
+.control select {
+  position: absolute;
+  left: 6rem;
+  width: 15rem;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font: inherit;
+  padding-left: 0.5rem;
+}
+
+.control input {
+  margin-top: 1rem;
+  position: absolute;
+  left: 6rem;
+  width: 30rem;
+  margin-left: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font: inherit;
+  padding-left: 0.5rem;
+}

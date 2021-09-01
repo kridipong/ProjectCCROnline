@@ -1,0 +1,30 @@
+
+.control {
+
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+
+}
+
+  .control label{
+
+    font-size:1.1rem;
+    font-weight: bold;
+    font: inherit;
+    padding-left: 0.5rem;
+  }
+  .control select{
+
+    position:absolute;
+    left: 8rem;
+    width: 15rem;
+    /* margin-left: 1rem; */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font: inherit;
+    padding-left: 0.5rem;
+  }
+
+  .control button {
+    align-content: center;
+  }

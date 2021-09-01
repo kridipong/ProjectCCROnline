@@ -1,35 +1,47 @@
 import React, { useState, useEffect } from "react";
 import PartNameList from "./PartNameList";
 import AddPartName from "./AddPartName";
-import classes from './PartName.module.css';
-
+import classes from "./PartName.module.css";
 
 const PartName = (props) => {
   const [modes, setModes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [partnames, setPartnames] = useState([]);
   const [newPartCode, setNewPartCode] = useState();
+  const [error, setError] = useState(null);
 
   const fetchMode = async () => {
+    setError(null);
     setIsLoading(true);
+    try {
+      const response = await fetch(
+        "https://ccrol-75eef-default-rtdb.asia-southeast1.firebasedatabase.app/mode.json"
+      );
 
-    const response = await fetch(
-      "https://ccrol-75eef-default-rtdb.asia-southeast1.firebasedatabase.app/mode.json"
-    );
-    const data = await response.json();
+      if (!response.ok) {
+        throw new Error(
+          "cannot fetch Mode from the dataBase  " + response.status
+        );
+      }
 
-    const transformedData = [];
+      const data = await response.json();
 
-    for (const key in data) {
-      transformedData.push({
-        ModeCode: data[key].ModeCode,
-        ModeName: data[key].ModeName,
-      });
+      const transformedData = [];
+
+      for (const key in data) {
+        transformedData.push({
+          ModeCode: data[key].ModeCode,
+          ModeName: data[key].ModeName,
+        });
+      }
+
+      setModes(transformedData);
+      console.log(transformedData);
+      setIsLoading(false);
+    } catch (error) {
+      setError(error.message);
+      setIsLoading(false);
     }
-
-    setModes(transformedData);
-    console.log(transformedData);
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -39,21 +51,28 @@ const PartName = (props) => {
 
   const addPartNameHandler = async (partName) => {
     setIsLoading(true);
-    const response = await fetch(
-      "https://ccrol-75eef-default-rtdb.asia-southeast1.firebasedatabase.app/partname.json",
-      {
-        method: "POST",
-        body: JSON.stringify(partName),
-        header: { "Context-Type": "application/JSON" },
-      }
-    );
+    setError(null);
+    try {
+      const response = await fetch(
+        "https://ccrol-75eef-default-rtdb.asia-southeast1.firebasedatabase.app/partname.json",
+        {
+          method: "POST",
+          body: JSON.stringify(partName),
+          header: { "Context-Type": "application/JSON" },
+        }
+      );
 
-    if (!response.ok) {
-      throw new Error("cannot add partname into dataBase" + response.status);
+      if (!response.ok) {
+        throw new Error("cannot add partname into dataBase   " + response.status);
+      }
+      const data = await response.json();
+      console.log(data);
+      fetchPartNameList();
+      setIsLoading(false);
+    } catch (error) {
+      setError(error.message);
+      setIsLoading(false);
     }
-    const data = await response.json();
-    console.log(data);
-    fetchPartNameList();
   };
 
   function formatNumberToText(num, size) {
@@ -70,25 +89,36 @@ const PartName = (props) => {
   };
 
   const fetchPartNameList = async () => {
+    setError(null);
     setIsLoading(true);
-    const response = await fetch(
-      "https://ccrol-75eef-default-rtdb.asia-southeast1.firebasedatabase.app/partname.json"
-    );
-    const data = await response.json();
+    try {
+      const response = await fetch(
+        "https://ccrol-75eef-default-rtdb.asia-southeast1.firebasedatabase.app/partname.json"
+      );
 
-    const transformedData = [];
+      if (!response.ok) {
+        throw new Error ("cannot fetch partname from the dataBase   " + response.status)
+      }
 
-    for (const key in data) {
-      transformedData.push({
-        PartCode: data[key].PartCode,
-        PartName: data[key].PartName,
-        ModeCode: data[key].ModeCode,
-      });
+      const data = await response.json();
+
+      const transformedData = [];
+
+      for (const key in data) {
+        transformedData.push({
+          PartCode: data[key].PartCode,
+          PartName: data[key].PartName,
+          ModeCode: data[key].ModeCode,
+        });
+      }
+
+      setPartnames(transformedData);
+      lastPartCode(transformedData);
+      setIsLoading(false);
+    } catch (error) {
+      setError(error.message);
+      setIsLoading(false);
     }
-
-    setPartnames(transformedData);
-    lastPartCode(transformedData);
-    setIsLoading(false);
   };
 
   return (
@@ -99,12 +129,14 @@ const PartName = (props) => {
         newPartCode={newPartCode}
       />
       <br />
-      {isLoading && <p> is Loading ..</p>}
+
 
       <PartNameList
         modes={modes}
         partnames={partnames}
         onFetch={fetchPartNameList}
+        isLoading ={isLoading}
+        hasError = {error}
       ></PartNameList>
     </div>
   );

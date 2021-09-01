@@ -34,6 +34,8 @@ const PartNameList = (props) => {
   return (
     <Card>
       <Button onClick={fetchPartnameHandler}>fetch</Button>
+      {props.hasError && <p> {props.hasError} </p> } 
+      {props.isLoading && <p> is Loading ..</p>}
       {content}
     </Card>
   );
