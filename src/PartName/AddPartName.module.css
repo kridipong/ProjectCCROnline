@@ -11,6 +11,19 @@
     padding-left: 0.5rem;
   }
   .control select{
+    position: absolute;
+    left:6rem;
+    width: 15rem;
+    margin-left: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font: inherit;
+    padding-left: 0.5rem;
+  }
+
+  .control Input{
+    position: absolute;
+    left:6rem;
     width: 15rem;
     margin-left: 1rem;
     border-radius: 5px;

@@ -9,7 +9,7 @@ const PartNamePart = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedMode, setSelectedMode] = useState("01");
-  const [selectedPartname, setSelectedPartname] = useState("001");
+
 
   const fetchMode = async () => {
     setError(null);
@@ -51,7 +51,7 @@ const PartNamePart = (props) => {
   };
 
   const partnameChangeHandler = (event) => {
-    setSelectedPartname(event.target.value);
+    props.onSelect(event.target.value);
 
   };
 
@@ -123,14 +123,14 @@ const PartNamePart = (props) => {
     <Card>
       <div className={classes.control}>
         <label> Mode </label>
-        <select name="mode" onChange={modeChangeHandler}>
+        <select name="mode" onClick={modeChangeHandler} >
           {listModes}
         </select>
       </div>
 
       <div className={classes.control}>
         <label> PartName </label>
-        <select name="partname" onChange={partnameChangeHandler}>
+        <select name="partname" onClick={partnameChangeHandler}>
           {listPartnames}
         </select>
       </div>

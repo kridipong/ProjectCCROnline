@@ -39,30 +39,28 @@ const AddPartName = (props) => {
 
   return (
     <Card>
-      <div className ={classes.control}>
+      <div className={classes.control}>
         <label htmlFor="Mode">Mode </label>
-        <select
-        
-          name="Mode"
-          onChange={modeChangeHandler}
-        >
+        <select name="Mode" onChange={modeChangeHandler}>
           {listOptions}
         </select>
-      </div>
-      <Input
-        label="PartCode"
-        input={{ id: "PartCode", type: "text", value: props.newPartCode }}
-        ref={partCodeRef}
-      />
 
-      <Input
-        ref={partNameRef}
-        label="PartName"
-        input={{
-          id: "PartName",
-          type: "text",
-        }}
-      />
+        <Input
+          label="PartCode"
+          input={{ id: "PartCode", type: "text", value: props.newPartCode }}
+          ref={partCodeRef}
+        />
+
+        <Input
+          ref={partNameRef}
+          label="PartName"
+          input={{ 
+            id: "PartName",
+            type: "text",
+            style: {color:"green"}
+          }}
+        />
+      </div>
       <Button onClick={addNewPartNameHandler}>+Add PartName</Button>
     </Card>
   );
