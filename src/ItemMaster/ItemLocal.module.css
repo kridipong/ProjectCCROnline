@@ -1,0 +1,42 @@
+.itemlocal {
+}
+
+.itemlocal h3 {
+  position: relative;
+  left: 2rem;
+}
+
+.itemlocal p {
+  position: relative;
+  left: 2rem;
+}
+
+.itemlocal span {
+  position: relative;
+  left: 2rem;
+}
+
+.itemlocal button {
+  position: absolute;
+  left: 33rem;
+}
+
+.itemlocal2 {
+}
+.itemlocal2 label {
+  position: relative;
+  left: 2rem;
+}
+.itemlocal2 input {
+
+    position: absolute;
+    left: 13rem;
+
+}
+
+
+.itemlocal2 button {
+    position: relative;
+    left:45%;
+    /* transform: translate(x=-60%); */
+}

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import InvoiceContext from "../../Store/invoice-context";
-import Card from "../../Components/Card";
+import Card from "../../../GlobalComponents/Card";
 import CartItem from "./CartItem";
 import PopupPrice from "../../Popup/PopupPrice";
 import classes from './Cart.module.css';

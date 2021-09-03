@@ -4,19 +4,23 @@ import Cart from "./Layout/Cart/Cart";
 import Summary from "./Layout/Header/Summary";
 import InvoiceContextProvider from "./Store/invoice-context-provider";
 import React from "react";
-
+import classes from './Sales.module.css';
 
 function Sales() {
   return (
     <InvoiceContextProvider>
-      <span>
+      <div className = {classes.control}>
+      <div>
         <Header />
-      </span>
+      </div>
+      <br />
       <span>
         <Summary />
       </span>
+      <br />
       <Item></Item>
       <Cart></Cart>
+      </div>
     </InvoiceContextProvider>
   );
 }

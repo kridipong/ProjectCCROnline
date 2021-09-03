@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import Card from '../../Components/Card';
+import Card from '../../../GlobalComponents/Card';
 import Customer from '../Customer/Customer';
 const Header =(props) => {
 

@@ -2,32 +2,42 @@ import React, { useState, useEffect } from "react";
 import PartNamePart from "./PartNamePart";
 import classes from "./ItemMaster.module.css";
 import ItemDetail from "./ItemDetail";
-import Card from '../GlobalComponents/Card';
+import Card from "../GlobalComponents/Card";
+import ItemLocal from './ItemLocal';
 
 const ItemMaster = (props) => {
   const [phase, setPhase] = useState("1");
   const [partCode, setPartCode] = useState("");
+  const [partName, setPartName] = useState("");
   const [showDetail, setShowDetail] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [newItemCode, setNewItemCode] = useState("0000000001");
+  const [newItem, setNewItem] = useState();
 
   useEffect(() => {
-    console.log(partCode);
     if (partCode !== "") {
       setShowDetail(true);
     }
   }, [partCode]);
 
-  const partNameSelectHandler =(partcode) =>{
+  const partNameSelectHandler = (partcode, partNameList) => {
     setPartCode(partcode);
+    const partNameIndex = partNameList.findIndex(
+      (partname) => partname.PartCode === partcode
+    );
+
+    const partName = partNameList[partNameIndex];
+    setPartName(partName.PartName);
+    // console.log(partName);
+    // console.log(partName.PartName);
     fetchNewItem();
-  }
+  };
 
   const addItemHandler = async (item) => {
     setIsLoading(true);
     setError(null);
-    const newItem = {...item, PartCode:partCode};
+    const newItem = { ...item, PartCode: partCode };
     try {
       const response = await fetch(
         "https://ccrol-75eef-default-rtdb.asia-southeast1.firebasedatabase.app/Itemdetail.json",
@@ -39,19 +49,55 @@ const ItemMaster = (props) => {
       );
 
       if (!response.ok) {
-        throw new Error("cannot add partname into dataBase   " + response.status);
+        throw new Error(
+          "cannot add partname into dataBase   " + response.status
+        );
       }
       const data = await response.json();
       console.log(data);
       setIsLoading(false);
       setShowDetail(false);
+      setNewItem({...item, PartName:partName});
       setPhase("2");
     } catch (error) {
       setError(error.message);
       setIsLoading(false);
     }
+  };
+
+  const addItemLocalHandler = async (item)=> {
+    setIsLoading(true);
+    setError(null);
+    const newItem = { ...item,ObsoleteFlag:0  };
+    try {
+      const response = await fetch(
+        "https://ccrol-75eef-default-rtdb.asia-southeast1.firebasedatabase.app/Itemlocal.json",
+        {
+          method: "POST",
+          body: JSON.stringify(newItem),
+          header: { "Context-Type": "application/JSON" },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          "cannot add itemLocal into dataBase   " + response.status
+        );
+      }
+      const data = await response.json();
+      console.log(data);
+      setIsLoading(false);
+      setShowDetail(false);
+      setPhase("1");
+    } catch (error) {
+      setError(error.message);
+      setIsLoading(false);
+    }
+
 
   };
+
+
 
 
   function formatNumberToText(num, size) {
@@ -69,7 +115,9 @@ const ItemMaster = (props) => {
       );
 
       if (!response.ok) {
-        throw new Error ("cannot fetch partname from the dataBase   " + response.status)
+        throw new Error(
+          "cannot fetch partname from the dataBase   " + response.status
+        );
       }
 
       const data = await response.json();
@@ -80,20 +128,19 @@ const ItemMaster = (props) => {
         transformedData.push({
           ItemCode: data[key].ItemCode,
           FullName: data[key].FullName,
-          Detail:data[key].Detail,
+          Detail: data[key].Detail,
           PartCode: data[key].PartCode,
           Price1: data[key].Price1,
           Price2: data[key].Price2,
           Price3: data[key].Price3,
           Bonus: data[key].BonusFactor,
-          Unit:data[key].Unit,
-          Barcode:data[key].Barcode,
+          Unit: data[key].Unit,
+          Barcode: data[key].Barcode,
         });
       }
-      
-      const lastItem = transformedData[transformedData.length-1]
-      const newItemcode = formatNumberToText(+lastItem.ItemCode+1,10 );
-      console.log(lastItem);
+
+      const lastItem = transformedData[transformedData.length - 1];
+      const newItemcode = formatNumberToText(+lastItem.ItemCode + 1, 10);
 
       setNewItemCode(newItemcode);
 
@@ -105,19 +152,35 @@ const ItemMaster = (props) => {
     }
   };
 
-
   return (
     <div className={classes.header}>
       <div>
-        <PartNamePart onSelect={partNameSelectHandler}></PartNamePart>
+       { phase === "1" && <PartNamePart onSelect={partNameSelectHandler}></PartNamePart>}
       </div>
       <br />
       <div>
-        {phase ==="1" && !showDetail && <p> Please Choose Mode and Partname to continue.. </p> }
-        {phase ==="1" && showDetail && <ItemDetail itemCode={newItemCode} onAdd={addItemHandler}></ItemDetail>}
-        {phase ==="1" &&  isLoading && <Card> <p> adding new item to dataBase .... </p> </Card> }
+        {phase === "1" && !showDetail && (
+          <p> Please Choose Mode and Partname to continue.. </p>
+        )}
+        {phase === "1" && showDetail && (
+          <ItemDetail
+            itemCode={newItemCode}
+            onAdd={addItemHandler}
+            partName={partName}
+          ></ItemDetail>
+        )}
+        {phase === "1" && isLoading && (
+          <Card>
+            <p> adding new item to dataBase .... </p>
+          </Card>
+        )}
 
-        {phase === "2" && <Card> <p> phase 2 .... </p> </Card>  }
+        {phase === "2" && (
+            <ItemLocal item= {newItem} onAdd = {addItemLocalHandler}></ItemLocal>
+
+        )}
+
+          {phase === "3" && <Card> phase 3 commencing ... </Card> }
       </div>
     </div>
   );

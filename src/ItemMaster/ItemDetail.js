@@ -80,6 +80,7 @@ const ItemDetail = (props) => {
 
   return (
     <Card className={classes.control}>
+      <h4> {props.partName }</h4>
       <label> Grade </label>
       <select name="grade" onChange={changeGradeHandler}> {listGrades} </select>
       <br />

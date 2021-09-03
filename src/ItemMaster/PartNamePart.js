@@ -51,7 +51,8 @@ const PartNamePart = (props) => {
   };
 
   const partnameChangeHandler = (event) => {
-    props.onSelect(event.target.value);
+    props.onSelect(event.target.value, partnames);
+
 
   };
 
@@ -124,6 +125,9 @@ const PartNamePart = (props) => {
       <div className={classes.control}>
         <label> Mode </label>
         <select name="mode" onClick={modeChangeHandler} >
+        <option value="default" disabled hidden>
+          choose mode ..
+        </option>
           {listModes}
         </select>
       </div>
@@ -131,6 +135,9 @@ const PartNamePart = (props) => {
       <div className={classes.control}>
         <label> PartName </label>
         <select name="partname" onClick={partnameChangeHandler}>
+        <option value="default" disabled hidden>
+          choose partname ..
+        </option>
           {listPartnames}
         </select>
       </div>

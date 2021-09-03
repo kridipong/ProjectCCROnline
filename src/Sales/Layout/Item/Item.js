@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import InvoiceContext from '../../Store/invoice-context';
-import Card from "../../Components/Card";
+import Card from "../../../GlobalComponents/Card";
 import classes from "../Item/item.module.css";
 
 
