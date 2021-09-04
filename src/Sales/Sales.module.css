@@ -1,4 +1,10 @@
-.control {
-    position: relative;
-    left:2rem;
+.header {
+    position:relative;
+    left:1rem;
+}
+
+.summary {
+    position:relative;
+    left:3rem;
+    width: 10rem;
 }

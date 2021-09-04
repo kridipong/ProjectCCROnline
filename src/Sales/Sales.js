@@ -9,18 +9,18 @@ import classes from './Sales.module.css';
 function Sales() {
   return (
     <InvoiceContextProvider>
-      <div className = {classes.control}>
-      <div>
+      <div  style={{ display: "flex", flexWrap: "wrap"  } }>
+      <div className = {classes.header} >
         <Header />
       </div>
-      <br />
-      <span>
+      <div className = {classes.summary}>
         <Summary />
-      </span>
+      </div>
+      </div> 
       <br />
       <Item></Item>
       <Cart></Cart>
-      </div>
+   
     </InvoiceContextProvider>
   );
 }

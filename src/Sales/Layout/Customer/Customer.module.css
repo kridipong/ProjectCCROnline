@@ -1,0 +1,18 @@
+.customer {
+}
+
+.customer label {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0.5rem;
+}
+
+.customer select {
+  font-size: 1.1rem;
+  margin:0.5rem;
+}
+
+.customer button {
+  position: relative;
+  left: 1rem;
+}

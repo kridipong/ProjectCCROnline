@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import DropDown from "../../Components/DropDown";
+import classes from './Customer.module.css';
+import Button from '../../../GlobalComponents/Button';
 
 const Customer = (props) => {
   const dummy_customer = {
@@ -30,11 +32,11 @@ const Customer = (props) => {
   }
 
   return (
-    <div>
+    <div className = {classes.customer}>
       <DropDown options={billType} label="ประเภทบิล" />
-      <div>
+      <div >
         <label>{customer.customerName}</label>
-        <button>{customer.customerCode}</button>
+        <Button>{customer.customerCode}</Button>
       </div>
 
       <DropDown

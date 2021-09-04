@@ -56,8 +56,7 @@ const AddPartName = (props) => {
           label="PartName"
           input={{ 
             id: "PartName",
-            type: "text",
-            style: {color:"green"}
+            type: "text"
           }}
         />
       </div>
